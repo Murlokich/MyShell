@@ -5,10 +5,7 @@
  *  \date 17/04/2025
 */
 
-#include <iostream>
-#include <string>
-
-const std::string EXIT_COMMAND = "exit";
+#include "../include/shell/Wish.h"
 
 
 /**
@@ -16,11 +13,8 @@ const std::string EXIT_COMMAND = "exit";
  * <BR>
  * @return Returns 0 if success, any other value otherwise.
  */
-int main() {
-    std::string command = "";
-
-    while (command != EXIT_COMMAND) {
-        std::getline(std::cin, command);
-        std::cout << command << std::endl;
-    }
+int main(int argc, const char * argv[]) {
+    auto wish = Wish();
+    auto res = wish.run();
+    return res;
 }
