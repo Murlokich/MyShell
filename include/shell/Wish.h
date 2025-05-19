@@ -16,12 +16,17 @@
 #include <memory>
 
 class Wish: public IShell{
+    enum class Mode {
+        INTERACTIVE = 1,
+        FILE,
+    };
+protected:
     std::unique_ptr<IReader> reader_;
     std::unique_ptr<IParser> parser_;
     std::unique_ptr<IExecutor> executor_;
 public:
-    Wish();
-    int run() final;
+    Wish(int argc, const char * argv[]);
+    virtual int run() final;
 };
 
 #endif // WISH_H

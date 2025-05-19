@@ -9,19 +9,18 @@
 
 #include <iostream>
 
-const std::string EXIT_COMMAND = "exit";
+std::optional<std::string> InteractiveReader::readLine() {
+    static const std::string EXIT_COMMAND = "exit";
 
-std::string InteractiveReader::readLine() {
     std::string line;
-    std::getline(std::cin, line);
+    std::cout << "wish>" << std::flush;
+    if (!std::getline(std::cin, line)) {
+        return std::nullopt;
+    };
     if (line == EXIT_COMMAND) {
-        finished = true;
+        return std::nullopt;
     }
     return line;
-}
-
-bool InteractiveReader::isFinished() {
-    return finished;
 }
 
 InteractiveReader::InteractiveReader(){}

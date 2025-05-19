@@ -9,11 +9,11 @@
 #define IREADER_H
 
 #include <string>
+#include <optional>
 
 class IReader {
 public:
-    virtual std::string readLine() = 0;
-    virtual bool isFinished() = 0;
+    virtual std::optional<std::string> readLine() = 0;
 
     virtual ~IReader() = default;
 };

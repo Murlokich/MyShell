@@ -7,12 +7,16 @@
 
 #include "../../include/reader/FileReader.h"
 
-std::string FileReader::readLine() {
-    return "";
+std::optional<std::string> FileReader::readLine() {
+    std::string line;
+    if (!std::getline(file_, line)) {
+        return std::nullopt;
+    }
+    return line;
 }
 
-bool FileReader::isFinished() {
-    return true;
+FileReader::FileReader(const std::string &filename): file_(filename) {
+    if (!file_.is_open()) {
+        throw std::runtime_error("FileReader: failed to open \"" + filename + "\"");
+    }
 }
-
-FileReader::FileReader(){}

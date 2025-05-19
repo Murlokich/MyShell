@@ -13,8 +13,7 @@
 class InteractiveReader: public IReader {
     bool finished = false;
 public:
-    virtual std::string readLine() final;
-    virtual bool isFinished() final;
+    virtual std::optional<std::string> readLine() final;
     InteractiveReader();
 };
 

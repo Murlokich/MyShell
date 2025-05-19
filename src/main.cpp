@@ -7,14 +7,13 @@
 
 #include "../include/shell/Wish.h"
 
-
 /**
  * <code>main</code> is the main function of this program.
  * <BR>
  * @return Returns 0 if success, any other value otherwise.
  */
 int main(int argc, const char * argv[]) {
-    auto wish = Wish();
+    auto wish = Wish(argc, argv);
     auto res = wish.run();
     return res;
 }

@@ -8,23 +8,23 @@
 #include "../../include/shell/Wish.h"
 #include "../../include/executor/DefaultExecutor.h"
 #include "../../include/parser/DefaultParser.h"
+#include "../../include/reader/FileReader.h"
 #include "../../include/reader/InteractiveReader.h"
 
 #include <memory>
 
-Wish::Wish(): 
-    reader_(std::make_unique<InteractiveReader>()), 
-    parser_(std::make_unique<DefaultParser>()), 
-    executor_(std::make_unique<DefaultExecutor>()) {};
+Wish::Wish(int argc, const char * argv[]):  parser_(std::make_unique<DefaultParser>()), executor_(std::make_unique<DefaultExecutor>()) {
+    if (argc == static_cast<int>(Wish::Mode::FILE)) {
+        reader_ = std::make_unique<FileReader>(argv[1]);
+    } else if (argc == static_cast<int>(Wish::Mode::INTERACTIVE)) {
+        reader_ = std::make_unique<InteractiveReader>();
+    }
+};
 
 int Wish::run() {
-    while (!reader_->isFinished()) {
-        auto line = reader_->readLine();
-        if (reader_->isFinished()) {
-            return 0;
-        }
-        auto parsedLine = parser_->parseCommands(line);
+    while (auto line = reader_->readLine()) {
+        auto parsedLine = parser_->parseCommands(*line);
         auto res = executor_->execute(parsedLine);
-    };
+    }
     return 0;
-};
+}
