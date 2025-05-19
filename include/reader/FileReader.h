@@ -15,7 +15,7 @@ class FileReader: public IReader {
     std::fstream file_;
 public:
     virtual std::optional<std::string> readLine() final;
-    FileReader(const std::string &filename);
+    explicit FileReader(const std::string &filename);
 };
 
 #endif // FILE_READER_H

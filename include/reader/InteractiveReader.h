@@ -14,7 +14,6 @@ class InteractiveReader: public IReader {
     bool finished = false;
 public:
     virtual std::optional<std::string> readLine() final;
-    InteractiveReader();
 };
 
 #endif // INTERACTIVE_READER_H

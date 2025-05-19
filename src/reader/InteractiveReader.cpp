@@ -22,5 +22,3 @@ std::optional<std::string> InteractiveReader::readLine() {
     }
     return line;
 }
-
-InteractiveReader::InteractiveReader(){}

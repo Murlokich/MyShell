@@ -25,7 +25,7 @@ protected:
     std::unique_ptr<IParser> parser_;
     std::unique_ptr<IExecutor> executor_;
 public:
-    Wish(int argc, const char * argv[]);
+    explicit Wish(int argc, const char * argv[]);
     virtual int run() final;
 };
 

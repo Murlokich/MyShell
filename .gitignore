@@ -3,3 +3,4 @@ include/parser.h
 include/shell.h
 src/parser.cpp
 src/shell.cpp
+wish
