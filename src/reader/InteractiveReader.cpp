@@ -10,10 +10,8 @@
 #include <iostream>
 
 std::optional<std::string> InteractiveReader::readLine() {
-    static const std::string EXIT_COMMAND = "exit";
-
     std::string line;
-    std::cout << "wish>" << std::flush;
+    std::cout << "wish> " << std::flush;
     if (!std::getline(std::cin, line)) {
         return std::nullopt;
     };

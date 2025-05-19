@@ -18,6 +18,8 @@ Wish::Wish(int argc, const char * argv[]):  parser_(std::make_unique<DefaultPars
         reader_ = std::make_unique<FileReader>(argv[1]);
     } else if (argc == static_cast<int>(Wish::Mode::INTERACTIVE)) {
         reader_ = std::make_unique<InteractiveReader>();
+    } else {
+        throw std::runtime_error("More than 1 argument execution is not supported");
     }
 };
 
