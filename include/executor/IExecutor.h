@@ -9,10 +9,12 @@
 #define IEXECUTOR_H
 
 #include <string>
+#include <optional>
+#include "../entities/Command.h"
 
 class IExecutor {
 public:
-    virtual int execute(const std::string &command) = 0;
+    virtual int execute(const std::vector<Command>& commands) = 0;
     virtual ~IExecutor() = default;
 };
 

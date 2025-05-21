@@ -9,10 +9,11 @@
 #define IPARSER_H
 
 #include <string>
+#include "../entities/Command.h"
 
 class IParser {
 public:
-    virtual std::string parseCommands(std::string line) = 0;
+    virtual std::vector<Command> parseCommands(std::string line) = 0;
 
     virtual ~IParser() = default;
 };

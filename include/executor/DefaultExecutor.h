@@ -14,8 +14,7 @@
 
 class DefaultExecutor: public IExecutor {
 public:
-    int execute(const std::string &command) final;
-    DefaultExecutor();
+    int execute(const std::vector<Command>& commands) final;
 };
 
 #endif // DEFAULT_EXECUTOR_H

@@ -5,3 +5,5 @@ src/parser.cpp
 src/shell.cpp
 wish
 test.txt
+test.cpp
+test

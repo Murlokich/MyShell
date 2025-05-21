@@ -9,9 +9,13 @@
 
 #include <iostream>
 
-int DefaultExecutor::execute(const std::string &command) {
-    std::cout << command << std::endl;
+int DefaultExecutor::execute(const std::vector<Command>& commands) {
+    for (auto command: commands) {
+        std::cout << "Command: " << command.command_ << std::endl;
+        for (auto arg: command.args_) {
+            std::cout << "Arg: " << arg << std::endl;
+        }
+        std::cout << "Sep: " << static_cast<char>(command.separator_) << std::endl << std::endl;
+    }
     return 0;
 };
-
-DefaultExecutor::DefaultExecutor(){};

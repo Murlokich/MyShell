@@ -9,11 +9,19 @@
 #define DEFAULT_PARSER_H
 
 #include "IParser.h"
+#include "../entities/Command.h"
 
-class DefaultParser: public IParser {
+class DefaultParser: public IParser { 
+    [[nodiscard]] std::vector<std::string> splitTokens(std::string line);
+    [[nodiscard]] std::optional<Command::Separator> parseSeparator(const std::string& token);
+
+    inline static const std::unordered_map<std::string, Command::Separator> strToSeparator_ {
+        {"&", Command::Separator::parallel},
+        {">", Command::Separator::redirection},
+        {";", Command::Separator::sequential},
+    };
 public:
-    std::string parseCommands(std::string line) final;
-    DefaultParser();
+    [[nodiscard]] std::vector<Command> parseCommands(std::string line) final;
 };
 
 #endif // DEFAULT_PARSER_H
