@@ -8,13 +8,20 @@
 #ifndef DEFAULT_EXECUTOR_H
 #define DEFAULT_EXECUTOR_H
 
+
 #include "IExecutor.h"
 
 #include <string>
+#include <vector>
+#include <string>
 
 class DefaultExecutor: public IExecutor {
+    const std::vector<std::string> paths = {"/bin"};
+
+    int executeCommand(const std::string& command_path, const std::vector<std::string>& args);
+    char *const * strVecToCharArr(std::vector<char*>& cStrVec, const std::vector<std::string>& strVec);
 public:
-    int execute(const std::vector<Command>& commands) final;
+    int executeCommands(const std::vector<Command>& commands) final;
 };
 
 #endif // DEFAULT_EXECUTOR_H

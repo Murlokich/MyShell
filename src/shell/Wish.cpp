@@ -12,6 +12,7 @@
 #include "../../include/reader/InteractiveReader.h"
 
 #include <memory>
+#include <iostream>
 
 Wish::Wish(int argc, const char * argv[]):  parser_(std::make_unique<DefaultParser>()), executor_(std::make_unique<DefaultExecutor>()) {
     if (argc == static_cast<int>(Wish::Mode::FILE)) {
@@ -26,7 +27,7 @@ Wish::Wish(int argc, const char * argv[]):  parser_(std::make_unique<DefaultPars
 int Wish::run() {
     while (auto line = reader_->readLine()) {
         auto parsedLine = parser_->parseCommands(*line);
-        auto res = executor_->execute(parsedLine);
+        auto res = executor_->executeCommands(parsedLine);
     }
     return 0;
 }
