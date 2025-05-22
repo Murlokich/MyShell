@@ -26,8 +26,8 @@ std::vector<Command> DefaultParser::parseCommands(std::string line) {
     auto words = splitTokens(line);
     std::vector<Command> commands{};
     Command command{};
-    for (auto word: words) {
-        if (auto sep = parseSeparator(word)) {
+    for (const auto& word: words) {
+        if (const auto& sep = parseSeparator(word)) {
             command.separator_ = *sep;
             commands.push_back(command);
             command = Command();

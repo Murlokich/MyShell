@@ -18,8 +18,8 @@
 class DefaultExecutor: public IExecutor {
     const std::vector<std::string> paths = {"/bin"};
 
-    int executeCommand(const std::string& command_path, const std::vector<std::string>& args);
-    char *const * strVecToCharArr(std::vector<char*>& cStrVec, const std::vector<std::string>& strVec);
+    int executeCommand(const std::string& command_path, const Command& command);
+    char *const * buildCArrArgs(std::vector<char*>& cStrVec, const Command& command);
 public:
     int executeCommands(const std::vector<Command>& commands) final;
 };
