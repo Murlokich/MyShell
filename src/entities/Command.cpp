@@ -7,17 +7,22 @@
 
 #include "../../include/entities/Command.h"
 
-// Command::Command(const std::string& command, const std::vector<std::string>& args, Separator separator):
-//     command_(command), args_(args), separator_(separator) {}
+Command::Command(const std::vector<std::string>& args, Separator separator): args_(args), separator_(separator) {}
 
-std::string Command::getCommand() {
-    return command_;
+const std::string& Command::getCommand() const {
+    // static is required to have long lifetime to avoid dangling reference
+    static const std::string no_command{};
+    if (args_.empty()) {
+        return no_command;
+    }
+    // 0 argument is assigned to command name. This convention is used for execv and is normal for C args
+    return args_[0];
 }
 
-std::vector<std::string> Command::getArgs() {
+const std::vector<std::string>& Command::getArgs() const {
     return args_;
 }
 
-Command::Separator Command::getSeparator() {
+Command::Separator Command::getSeparator() const {
     return separator_;
 }

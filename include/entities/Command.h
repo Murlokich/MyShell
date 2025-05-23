@@ -22,13 +22,13 @@ public:
         sequential = ';',
     };
 
-    std::string getCommand();
-    std::vector<std::string> getArgs();
-    Separator getSeparator();
-    
-    std::string command_;
+    const std::string& getCommand() const;
+    const std::vector<std::string>& getArgs() const;
+    Separator getSeparator() const;
+    Command(const std::vector<std::string>& args, Separator separator = Separator::sequential);
+private:
     std::vector<std::string> args_;
-    Separator separator_ = Separator::sequential;
+    Separator separator_;
 };
 
 

@@ -25,22 +25,17 @@ std::optional<Command::Separator> DefaultParser::parseSeparator(const std::strin
 std::vector<Command> DefaultParser::parseCommands(std::string line) {
     auto words = splitTokens(line);
     std::vector<Command> commands{};
-    Command command{};
+    std::vector<std::string> args{};
     for (const auto& word: words) {
         if (const auto& sep = parseSeparator(word)) {
-            command.separator_ = *sep;
-            commands.push_back(command);
-            command = Command();
+            commands.emplace_back(args, *sep);
+            args.clear();
             continue;
         }
-        if (command.command_ == "") {
-            command.command_ = word;
-        } else {
-            command.args_.push_back(word);
-        }
+        args.push_back(word);
     }
-    if (command.command_ != "") {
-        commands.push_back(command);
+    if (!args.empty()) {
+        commands.emplace_back(args);
     }
     return commands;
 }

@@ -9,6 +9,7 @@ build: ## builds the code
 		src/reader/InteractiveReader.cpp \
 		src/reader/FileReader.cpp \
 		src/shell/Wish.cpp \
+		src/entities/Command.cpp \
 		src/main.cpp \
 		-std=c++20 -o wish
 
