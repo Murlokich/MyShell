@@ -15,11 +15,16 @@
 #include <sys/wait.h> 
 #include <sys/types.h>
 
-int DefaultExecutor::executeCommands(const std::vector<Command>& commands) {
+bool DefaultExecutor::isExecutableFile(const std::string& command_path) const {
+    return access(command_path.c_str(), X_OK) == 0
+        && std::filesystem::is_regular_file(command_path);
+}
+
+int DefaultExecutor::executeCommands(const std::vector<Command>& commands) const {
     for (const auto& command: commands) {
         for (const auto& path: paths) {
             auto command_path = path + "/" + command.getCommand();
-            if (std::filesystem::exists(command_path)) {
+            if (isExecutableFile(command_path)) {
                 auto res = executeCommand(command_path, command);
                 if (res == -1) {
                     std::cout << "Failed to run the command" << std::endl;
@@ -33,7 +38,7 @@ int DefaultExecutor::executeCommands(const std::vector<Command>& commands) {
     return -1;
 };
 
-int DefaultExecutor::executeCommand(const std::string& command_path,const Command& command) {
+int DefaultExecutor::executeCommand(const std::string& command_path,const Command& command) const {
     pid_t pid = fork();
     if (pid < 0) {
         std::cerr << "failed to create child process (fork)";
@@ -58,7 +63,7 @@ int DefaultExecutor::executeCommand(const std::string& command_path,const Comman
     return 0;
 }
 
-char *const * DefaultExecutor::buildCArrArgs(std::vector<char*>& cStrVec, const Command& command) {
+char *const * DefaultExecutor::buildCArrArgs(std::vector<char*>& cStrVec, const Command& command) const {
     const auto& cmdArgs = command.getArgs();
     // execv signature was implemented with using no const char*. const_cast is required for compatibility
     // https://stackoverflow.com/a/190208

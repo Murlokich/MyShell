@@ -18,10 +18,11 @@
 class DefaultExecutor: public IExecutor {
     const std::vector<std::string> paths = {"/bin"};
 
-    int executeCommand(const std::string& command_path, const Command& command);
-    char *const * buildCArrArgs(std::vector<char*>& cStrVec, const Command& command);
+    bool isExecutableFile(const std::string& command_path) const;
+    int executeCommand(const std::string& command_path, const Command& command) const;
+    char *const * buildCArrArgs(std::vector<char*>& cStrVec, const Command& command) const;
 public:
-    int executeCommands(const std::vector<Command>& commands) final;
+    int executeCommands(const std::vector<Command>& commands) const final;
 };
 
 #endif // DEFAULT_EXECUTOR_H
