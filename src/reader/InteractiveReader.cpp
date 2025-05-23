@@ -15,8 +15,5 @@ std::optional<std::string> InteractiveReader::readLine() {
     if (!std::getline(std::cin, line)) {
         return std::nullopt;
     };
-    if (line == EXIT_COMMAND) {
-        return std::nullopt;
-    }
     return line;
 }

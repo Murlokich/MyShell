@@ -12,9 +12,6 @@ std::optional<std::string> FileReader::readLine() {
     if (!std::getline(file_, line)) {
         return std::nullopt;
     }
-    if (line == EXIT_COMMAND) {
-        return std::nullopt;
-    }
     return line;
 }
 

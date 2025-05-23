@@ -12,8 +12,6 @@
 #include <optional>
 
 class IReader {
-protected:
-    inline static const std::string EXIT_COMMAND = "exit";
 public:
     virtual std::optional<std::string> readLine() = 0;
 

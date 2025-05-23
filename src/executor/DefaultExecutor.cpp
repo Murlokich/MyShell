@@ -15,6 +15,45 @@
 #include <sys/wait.h> 
 #include <sys/types.h>
 
+void DefaultExecutor::builtInExit() const {
+    exit(0);
+    assert(false);
+}
+
+int DefaultExecutor::executeBuiltInCommand(BuiltInCommandType commandType, const Command& command) const {
+    switch (commandType) {
+        case BuiltInCommandType::exit:
+            if (command.getArgs().size() != 1 + 0) {
+                return -1;
+            }
+            assert(command.getArgs().size() == 1 + 0);
+            assert(command.getCommand() == "exit");
+            builtInExit();
+            break;
+        case BuiltInCommandType::cd:
+            if (command.getArgs().size() != 1 + 1) {
+                return -1;
+            }
+            assert(command.getArgs().size() == 1 + 1);
+            assert(command.getCommand() == "cd");
+            break;
+        case BuiltInCommandType::path:
+            assert(command.getCommand() == "path");
+            break;
+        default:
+            // Not expected to get here. Cases must check all possible commands
+            assert(false);
+    }
+    return 0;
+}
+
+std::optional<DefaultExecutor::BuiltInCommandType> DefaultExecutor::getBuiltInCommandType(const std::string& command) const {
+    if (auto it = strToBuiltInCommand_ .find(command); it != strToBuiltInCommand_.end()) {
+        return it->second;
+    }
+    return std::nullopt;
+}
+
 bool DefaultExecutor::isExecutableFile(const std::string& command_path) const {
     return access(command_path.c_str(), X_OK) == 0
         && std::filesystem::is_regular_file(command_path);
@@ -22,6 +61,10 @@ bool DefaultExecutor::isExecutableFile(const std::string& command_path) const {
 
 int DefaultExecutor::executeCommands(const std::vector<Command>& commands) const {
     for (const auto& command: commands) {
+        if (auto type = getBuiltInCommandType(command.getCommand()); type) {
+            executeBuiltInCommand(*type, command);
+            continue;
+        }
         for (const auto& path: paths) {
             auto command_path = path + "/" + command.getCommand();
             if (isExecutableFile(command_path)) {
@@ -35,7 +78,7 @@ int DefaultExecutor::executeCommands(const std::vector<Command>& commands) const
             }
         }
     }
-    return -1;
+    return 0;
 };
 
 int DefaultExecutor::executeCommand(const std::string& command_path,const Command& command) const {
