@@ -20,11 +20,18 @@ void DefaultExecutor::builtInExit() const {
     assert(false);
 }
 
+void DefaultExecutor::builtInPath(const std::vector<std::string>& args) {
+    paths_ = args;
+    // first arg is the command name.
+    // It's okay as we already copy the vector for O(n)
+    paths_.erase(paths_.begin());
+}
+
 int DefaultExecutor::builtInCD(const std::string& dir) const {
     return chdir(dir.c_str());
 }
 
-int DefaultExecutor::executeBuiltInCommand(BuiltInCommandType commandType, const Command& command) const {
+int DefaultExecutor::executeBuiltInCommand(BuiltInCommandType commandType, const Command& command) {
     switch (commandType) {
         case BuiltInCommandType::exit:
             if (command.getArgs().size() != 1 + 0) {
@@ -46,6 +53,7 @@ int DefaultExecutor::executeBuiltInCommand(BuiltInCommandType commandType, const
             break;
         case BuiltInCommandType::path:
             assert(command.getCommand() == "path");
+            builtInPath(command.getArgs());
             break;
         default:
             // Not expected to get here. Cases must check all possible commands
@@ -66,13 +74,13 @@ bool DefaultExecutor::isExecutableFile(const std::string& command_path) const {
        && std::filesystem::is_regular_file(command_path);
 }
 
-int DefaultExecutor::executeCommands(const std::vector<Command>& commands) const {
+int DefaultExecutor::executeCommands(const std::vector<Command>& commands) {
     for (const auto& command: commands) {
         if (auto type = getBuiltInCommandType(command.getCommand()); type) {
             auto res = executeBuiltInCommand(*type, command);
             continue;
         }
-        for (const auto& path: paths) {
+        for (const auto& path: paths_) {
             auto command_path = path + "/" + command.getCommand();
             if (isExecutableFile(command_path)) {
                 auto res = executeCommand(command_path, command);

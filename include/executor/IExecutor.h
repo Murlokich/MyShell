@@ -14,7 +14,7 @@
 
 class IExecutor {
 public:
-    virtual int executeCommands(const std::vector<Command>& commands) const = 0;
+    virtual int executeCommands(const std::vector<Command>& commands) = 0;
     virtual ~IExecutor() = default;
 };
 
