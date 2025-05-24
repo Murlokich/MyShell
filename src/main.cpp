@@ -15,5 +15,8 @@
 int main(int argc, const char * argv[]) {
     auto wish = Wish(argc, argv);
     auto res = wish.run();
-    return res;
+    if (res != 0) {
+        Wish::printError();
+    }
+    exit(res);
 }

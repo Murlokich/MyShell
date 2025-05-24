@@ -78,19 +78,25 @@ int DefaultExecutor::executeCommands(const std::vector<Command>& commands) {
     for (const auto& command: commands) {
         if (auto type = getBuiltInCommandType(command.getCommand()); type) {
             auto res = executeBuiltInCommand(*type, command);
+            if (res != 0) {
+                return res;
+            }
             continue;
         }
+        bool haveExecuted = false;
         for (const auto& path: paths_) {
             auto command_path = path + "/" + command.getCommand();
             if (isExecutableFile(command_path)) {
                 auto res = executeCommand(command_path, command);
-                if (res == -1) {
-                    std::cout << "Failed to run the command" << std::endl;
+                if (res != 0) {
+                    return res;
                 }
-                return 0;
-            } else {
-                std::cout << "Unknown command" << std::endl;
+                haveExecuted = true;
+                break;
             }
+        }
+        if (!haveExecuted) {
+            return -1;
         }
     }
     return 0;
@@ -99,7 +105,6 @@ int DefaultExecutor::executeCommands(const std::vector<Command>& commands) {
 int DefaultExecutor::executeCommand(const std::string& command_path,const Command& command) const {
     pid_t pid = fork();
     if (pid < 0) {
-        std::cerr << "failed to create child process (fork)";
         return -1;
     }
     if (pid == 0) {
@@ -107,13 +112,11 @@ int DefaultExecutor::executeCommand(const std::string& command_path,const Comman
         // Otherwise would have had to initialize array on heap. Check buildCArrArgs func
         std::vector<char*> cArgs(command.getArgs().size() + 1);
         execv(command_path.c_str(), buildCArrArgs(cArgs, command));
-        std::cerr << "Failed to execv new process: " << command_path;
         return -1;
     } else {
         int status;
         auto wait_pid = waitpid(pid, &status, 0);
         if (wait_pid == -1) {
-            std::cerr << "Failed to wait for the child, pid: "<< pid;
             return -1;
         }
         assert(wait_pid == pid);

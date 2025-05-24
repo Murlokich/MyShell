@@ -24,10 +24,17 @@ Wish::Wish(int argc, const char * argv[]):  parser_(std::make_unique<DefaultPars
     }
 };
 
+void Wish::printError() {
+    std::cerr << "An error has occurred" << std::endl;
+}
+
 int Wish::run() {
     while (auto line = reader_->readLine()) {
         auto parsedLine = parser_->parseCommands(*line);
         auto res = executor_->executeCommands(parsedLine);
+        if (res != 0) {
+            printError();
+        }
     }
     return 0;
 }

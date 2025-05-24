@@ -12,6 +12,10 @@ build: ## builds the code
 		src/entities/Command.cpp \
 		src/main.cpp \
 		-std=c++20 -o wish
+	cp wish processes-shell/
+
+run-tests: ## run e2e tests
+	cd processes-shell && ./test-wish.sh
 
 run-interactive: ## runs already built wish executable in interactive mode
 	./wish
