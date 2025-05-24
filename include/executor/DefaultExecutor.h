@@ -32,6 +32,7 @@ class DefaultExecutor: public IExecutor {
     };
 
     void builtInExit() const;
+    int builtInCD(const std::string& dir) const;
     std::optional<BuiltInCommandType> getBuiltInCommandType(const std::string& command) const;
     int executeBuiltInCommand(BuiltInCommandType commandType, const Command& command) const;
     bool isExecutableFile(const std::string& command_path) const;

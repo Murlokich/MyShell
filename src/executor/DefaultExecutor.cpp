@@ -20,6 +20,10 @@ void DefaultExecutor::builtInExit() const {
     assert(false);
 }
 
+int DefaultExecutor::builtInCD(const std::string& dir) const {
+    return chdir(dir.c_str());
+}
+
 int DefaultExecutor::executeBuiltInCommand(BuiltInCommandType commandType, const Command& command) const {
     switch (commandType) {
         case BuiltInCommandType::exit:
@@ -36,6 +40,9 @@ int DefaultExecutor::executeBuiltInCommand(BuiltInCommandType commandType, const
             }
             assert(command.getArgs().size() == 1 + 1);
             assert(command.getCommand() == "cd");
+            if (auto res = builtInCD(command.getArgs()[1]); res != 0) {
+                return res;
+            }
             break;
         case BuiltInCommandType::path:
             assert(command.getCommand() == "path");
@@ -56,13 +63,13 @@ std::optional<DefaultExecutor::BuiltInCommandType> DefaultExecutor::getBuiltInCo
 
 bool DefaultExecutor::isExecutableFile(const std::string& command_path) const {
     return access(command_path.c_str(), X_OK) == 0
-        && std::filesystem::is_regular_file(command_path);
+       && std::filesystem::is_regular_file(command_path);
 }
 
 int DefaultExecutor::executeCommands(const std::vector<Command>& commands) const {
     for (const auto& command: commands) {
         if (auto type = getBuiltInCommandType(command.getCommand()); type) {
-            executeBuiltInCommand(*type, command);
+            auto res = executeBuiltInCommand(*type, command);
             continue;
         }
         for (const auto& path: paths) {
