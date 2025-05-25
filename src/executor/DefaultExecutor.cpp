@@ -78,6 +78,11 @@ bool DefaultExecutor::isExecutableFile(const std::string& command_path) const {
 
 int DefaultExecutor::executeCommands(const std::vector<Command>& commands) {
     for (const auto& command: commands) {
+        // According to tests: & or ; are valid commands.
+        // Not the same in bash (result of & command): bash: syntax error near unexpected token `&'
+        if (command.getCommand().empty()) {
+            continue;
+        }
         if (auto type = getBuiltInCommandType(command.getCommand()); type) {
             auto res = executeBuiltInCommand(*type, command);
             if (res != 0) {
