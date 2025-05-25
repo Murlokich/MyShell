@@ -8,12 +8,14 @@
 #ifndef IPARSER_H
 #define IPARSER_H
 
-#include <string>
 #include "../entities/Command.h"
+
+#include <string>
+
 
 class IParser {
 public:
-    virtual std::pair<int, std::vector<Command>> parseCommands(const std::string& line) const = 0;
+    virtual std::pair<bool, std::vector<Command>> parseCommands(const std::string& line) const = 0;
 
     virtual ~IParser() = default;
 };

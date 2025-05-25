@@ -22,8 +22,8 @@ enum class Wish::Mode {
 
 int Wish::run() {
     while (auto line = reader_->readLine()) {
-        auto [validation_error, parsedLine] = parser_->parseCommands(*line);
-        if (validation_error != 0) {
+        auto [valid, parsedLine] = parser_->parseCommands(*line);
+        if (!valid) {
             printError();
             continue;
         }
