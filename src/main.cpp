@@ -18,8 +18,8 @@ int main(int argc, const char * argv[]) {
         wish = Wish(argc, argv);
     } catch(const std::exception& e) {
         Wish::printError();
-        exit(1);
+        return 1;
     }
-    auto return_code = wish->run();
-    exit(return_code);
+    wish->run();
+    return 0;
 }

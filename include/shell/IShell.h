@@ -10,7 +10,7 @@
 
 class IShell {
 public:
-    virtual int run() = 0;
+    virtual void run() = 0;
     
     virtual ~IShell() = default;
 };

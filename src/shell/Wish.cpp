@@ -20,7 +20,7 @@ enum class Wish::Mode {
 };
 
 
-int Wish::run() {
+void Wish::run() {
     while (auto line = reader_->readLine()) {
         auto [valid, parsedLine] = parser_->parseCommands(*line);
         if (!valid) {
@@ -32,7 +32,6 @@ int Wish::run() {
             printError();
         }
     }
-    return 0;
 }
 
 
