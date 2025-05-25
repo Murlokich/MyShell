@@ -77,6 +77,7 @@ bool DefaultExecutor::isExecutableFile(const std::string& command_path) const {
 }
 
 int DefaultExecutor::executeCommands(const std::vector<Command>& commands) {
+    std::vector<pid_t> waiting_pids{};
     for (const auto& command: commands) {
         // According to tests: & or ; are valid commands.
         // Not the same in bash (result of & command): bash: syntax error near unexpected token `&'
@@ -94,22 +95,58 @@ int DefaultExecutor::executeCommands(const std::vector<Command>& commands) {
         for (const auto& path: paths_) {
             auto command_path = path + "/" + command.getCommand();
             if (isExecutableFile(command_path)) {
-                auto res = executeCommand(command_path, command);
-                if (res != 0) {
-                    return res;
+                auto pid = executeCommand(command_path, command);
+                if (pid < 0) {
+                    assert(false);
+                    return pid;
                 }
                 haveExecuted = true;
+                waiting_pids.push_back(pid);
                 break;
             }
         }
         if (!haveExecuted) {
             return -1;
         }
+        if (auto separator = command.getSeparator(); separator == Command::Separator::sequential) {
+            if (auto res = waitChildren(waiting_pids); res != 0) {
+                return -1;
+            }
+        }
+    }
+    // Checks case where user ends their input with &:
+    // cmd1 & cmd2 & cmd3 &
+    // bash doesn't wait for the next process, it finishes the line
+    // so start waiting for children even if line didn't end with ;
+    if (auto res = waitChildren(waiting_pids); res != 0) {
+            return -1;
     }
     return 0;
 };
 
-int DefaultExecutor::executeCommand(const std::string& command_path,const Command& command) const {
+int DefaultExecutor::waitChildren(std::vector<pid_t>& pids) const {
+    int status;
+    for (auto child_pid : pids) {
+        auto wait_pid = waitpid(child_pid, &status, 0);
+        if (wait_pid == -1) {
+            return -1;
+        }
+        assert(wait_pid == child_pid);
+    }
+    pids.clear();
+    return 0;
+}
+
+// else {
+//         int status;
+//         auto wait_pid = waitpid(pid, &status, 0);
+//         if (wait_pid == -1) {
+//             return -1;
+//         }
+//         assert(wait_pid == pid);
+//     }
+
+pid_t DefaultExecutor::executeCommand(const std::string& command_path,const Command& command) const {
     pid_t pid = fork();
     if (pid < 0) {
         return -1;
@@ -126,16 +163,11 @@ int DefaultExecutor::executeCommand(const std::string& command_path,const Comman
             close(fd);     // fd no longer needed - the dup'ed handles are sufficient
         }
         execv(command_path.c_str(), buildCArrArgs(cArgs, command));
-        return -1;
-    } else {
-        int status;
-        auto wait_pid = waitpid(pid, &status, 0);
-        if (wait_pid == -1) {
-            return -1;
-        }
-        assert(wait_pid == pid);
-    }
-    return 0;
+        // Execution of this line means that execv fails.
+        // It is expected for it to never return, so we must stop this process
+        exit(1);
+    } 
+    return pid;
 }
 
 char *const * DefaultExecutor::buildCArrArgs(std::vector<char*>& cStrVec, const Command& command) const {

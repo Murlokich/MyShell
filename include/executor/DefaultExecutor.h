@@ -34,6 +34,7 @@ class DefaultExecutor: public IExecutor {
     void builtInExit() const;
     void builtInPath(const std::vector<std::string>& args);
     int builtInCD(const std::string& dir) const;
+    int waitChildren(std::vector<pid_t>& pids) const;
     std::optional<BuiltInCommandType> getBuiltInCommandType(const std::string& command) const;
     int executeBuiltInCommand(BuiltInCommandType commandType, const Command& command);
     bool isExecutableFile(const std::string& command_path) const;
