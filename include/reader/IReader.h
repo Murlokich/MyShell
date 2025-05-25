@@ -1,5 +1,5 @@
 /** \file IReader.h
- *  \brief This file declares interface for reader
+ *  \brief This file declares interface for the reader
  *  \author Konstantinos Trimikliniotis
  *  \version 0.0.1
  *  \date 25/04/2025

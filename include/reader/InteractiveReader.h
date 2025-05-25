@@ -1,5 +1,5 @@
 /** \file InteractiveReader.h
- *  \brief This file declares InteractiveReader class for shells interactive mode, implements IReader
+ *  \brief Declares the InteractiveReader class for shell interactive mode, implementing IReader.
  *  \author Konstantinos Trimikliniotis
  *  \version 0.0.1
  *  \date 26/04/2025
@@ -10,9 +10,18 @@
 
 #include "IReader.h"
 
-class InteractiveReader: public IReader {
+/** \class InteractiveReader
+ *  \brief Reads input lines from standard input for interactive shell mode.
+ *
+ *  InteractiveReader prompts the user and returns each entered line
+ *  via the `readLine()` method
+*/
+class InteractiveReader : public IReader {
 public:
-    virtual std::optional<std::string> readLine() final;
+    /** \brief Read the next line from standard input.
+     *  \return An optional containing the next line if available; std::nullopt on EOF or error.
+    */
+    std::optional<std::string> readLine() final;
 };
 
 #endif // INTERACTIVE_READER_H
