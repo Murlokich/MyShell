@@ -7,5 +7,5 @@ wish
 test.txt
 test.cpp
 test
-processes-shell/tests-out/*
+/processes-shell/tests-out/
 processes-shell/wish

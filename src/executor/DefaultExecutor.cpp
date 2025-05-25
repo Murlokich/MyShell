@@ -14,6 +14,8 @@
 #include <unistd.h>
 #include <sys/wait.h> 
 #include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 void DefaultExecutor::builtInExit() const {
     exit(0);
@@ -111,6 +113,13 @@ int DefaultExecutor::executeCommand(const std::string& command_path,const Comman
         // Must initialize next to execv in order to keep lifetime of the returning ptr based on this vector.
         // Otherwise would have had to initialize array on heap. Check buildCArrArgs func
         std::vector<char*> cArgs(command.getArgs().size() + 1);
+        if (auto redirection_file = command.getRedirectionFile(); redirection_file) {
+            // Got this code from: https://stackoverflow.com/a/2605313
+            int fd = open(redirection_file->c_str(), O_WRONLY | O_CREAT | O_TRUNC, S_IRUSR | S_IWUSR);
+            dup2(fd, 1);   // make stdout go to file
+            dup2(fd, 2);   // make stderr go to file
+            close(fd);     // fd no longer needed - the dup'ed handles are sufficient
+        }
         execv(command_path.c_str(), buildCArrArgs(cArgs, command));
         return -1;
     } else {
