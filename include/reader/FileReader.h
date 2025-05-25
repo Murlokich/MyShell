@@ -9,13 +9,15 @@
 #define FILE_READER_H
 
 #include "IReader.h"
+
 #include <fstream>
 
 class FileReader: public IReader {
-    std::fstream file_;
 public:
     virtual std::optional<std::string> readLine() final;
     explicit FileReader(const std::string &filename);
+private:
+    std::fstream file_;
 };
 
 #endif // FILE_READER_H

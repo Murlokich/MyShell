@@ -8,8 +8,8 @@
 #ifndef IREADER_H
 #define IREADER_H
 
-#include <string>
 #include <optional>
+#include <string>
 
 class IReader {
 public:
