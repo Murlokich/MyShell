@@ -18,7 +18,6 @@ class Command {
 public:
     enum class Separator {
         parallel = '&',
-        redirection = '>',
         sequential = ';',
     };
 
@@ -28,11 +27,11 @@ public:
     Separator getSeparator() const;
     void setSeparator(Separator separator);
     Command();
-    Command(const std::vector<std::string>& args, std::optional<std::string> redirection_file = std::nullopt);
+    Command(const std::vector<std::string>& args, std::optional<std::string> redirection_file);
 private:
     std::vector<std::string> args_;
-    Separator separator_;
-    std::optional<std::string> redirection_file_;
+    Separator separator_ =  Separator::sequential;
+    std::optional<std::string> redirection_file_ = std::nullopt;
 };
 
 

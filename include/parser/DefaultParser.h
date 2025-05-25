@@ -21,7 +21,6 @@ class DefaultParser: public IParser {
 
     inline static const std::unordered_map<std::string, Command::Separator> strToSeparator_ {
         {"&", Command::Separator::parallel},
-        {">", Command::Separator::redirection},
         {";", Command::Separator::sequential},
     };
 public:
