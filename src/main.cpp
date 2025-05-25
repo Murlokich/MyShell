@@ -13,7 +13,13 @@
  * @return Returns 0 if success, any other value otherwise.
  */
 int main(int argc, const char * argv[]) {
-    auto wish = Wish(argc, argv);
-    auto res = wish.run();
+    std::optional<Wish> wish;
+    try {
+        wish = Wish(argc, argv);
+    } catch(const std::exception& e) {
+        Wish::printError();
+        exit(1);
+    }
+    auto res = wish->run();
     exit(res);
 }
