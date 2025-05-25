@@ -8,13 +8,15 @@
 #ifndef IEXECUTOR_H
 #define IEXECUTOR_H
 
-#include <string>
-#include <optional>
 #include "../entities/Command.h"
+
+#include <optional>
+#include <string>
+
 
 class IExecutor {
 public:
-    virtual int executeCommands(const std::vector<Command>& commands) = 0;
+    virtual bool executeCommands(const std::vector<Command>& commands) = 0;
     virtual ~IExecutor() = default;
 };
 

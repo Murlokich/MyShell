@@ -5,14 +5,41 @@
  *  \date 26/04/2025
 */
 
-#include "../../include/shell/Wish.h"
 #include "../../include/executor/DefaultExecutor.h"
 #include "../../include/parser/DefaultParser.h"
 #include "../../include/reader/FileReader.h"
 #include "../../include/reader/InteractiveReader.h"
+#include "../../include/shell/Wish.h"
 
-#include <memory>
 #include <iostream>
+#include <memory>
+
+enum class Wish::Mode {
+    INTERACTIVE = 1,
+    FILE,
+};
+
+
+int Wish::run() {
+    while (auto line = reader_->readLine()) {
+        auto [validation_error, parsedLine] = parser_->parseCommands(*line);
+        if (validation_error != 0) {
+            printError();
+            continue;
+        }
+        auto success = executor_->executeCommands(parsedLine);
+        if (!success) {
+            printError();
+        }
+    }
+    return 0;
+}
+
+
+void Wish::printError() {
+    std::cerr << "An error has occurred" << std::endl;
+}
+
 
 Wish::Wish(int argc, const char * argv[]):  parser_(std::make_unique<DefaultParser>()), executor_(std::make_unique<DefaultExecutor>()) {
     if (argc == static_cast<int>(Wish::Mode::FILE)) {
@@ -23,22 +50,3 @@ Wish::Wish(int argc, const char * argv[]):  parser_(std::make_unique<DefaultPars
         throw std::runtime_error("More than 1 argument execution is not supported");
     }
 };
-
-void Wish::printError() {
-    std::cerr << "An error has occurred" << std::endl;
-}
-
-int Wish::run() {
-    while (auto line = reader_->readLine()) {
-        auto [validation_error, parsedLine] = parser_->parseCommands(*line);
-        if (validation_error != 0) {
-            printError();
-            continue;
-        }
-        auto res = executor_->executeCommands(parsedLine);
-        if (res != 0) {
-            printError();
-        }
-    }
-    return 0;
-}

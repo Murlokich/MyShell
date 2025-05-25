@@ -11,37 +11,29 @@
 
 #include "IExecutor.h"
 
+#include <optional>
 #include <string>
 #include <vector>
-#include <string>
-#include <optional>
 
 class DefaultExecutor: public IExecutor {
+public:
+    bool executeCommands(const std::vector<Command>& commands) final;
+
+private:
+    enum class BuiltInCommandType;
     std::vector<std::string> paths_ = {"/bin"};
+    static const std::unordered_map<std::string, BuiltInCommandType> strToBuiltInCommand_;
 
-    enum class BuiltInCommandType {
-        exit,
-        cd,
-        path,
-    };
+    int executePathCommand(const std::string& command_path, const Command& command) const;
+    void waitChildren(std::vector<pid_t>& pids) const;
+    bool isExecutableFile(const std::string& command_path) const;
+    char *const * convertArgsToCStyle(std::vector<char*>& cStrVec, const Command& command) const;
 
-    inline static const std::unordered_map<std::string, BuiltInCommandType> strToBuiltInCommand_ {
-        {"exit", BuiltInCommandType::exit},
-        {"cd", BuiltInCommandType::cd},
-        {"path", BuiltInCommandType::path},
-    };
-
+    bool executeBuiltInCommand(const BuiltInCommandType& commandType, const Command& command);
     void builtInExit() const;
     void builtInPath(const std::vector<std::string>& args);
-    int builtInCD(const std::string& dir) const;
-    int waitChildren(std::vector<pid_t>& pids) const;
+    bool builtInCD(const std::string& dir) const;
     std::optional<BuiltInCommandType> getBuiltInCommandType(const std::string& command) const;
-    int executeBuiltInCommand(BuiltInCommandType commandType, const Command& command);
-    bool isExecutableFile(const std::string& command_path) const;
-    int executeCommand(const std::string& command_path, const Command& command) const;
-    char *const * buildCArrArgs(std::vector<char*>& cStrVec, const Command& command) const;
-public:
-    int executeCommands(const std::vector<Command>& commands) final;
 };
 
 #endif // DEFAULT_EXECUTOR_H

@@ -20,6 +20,6 @@ int main(int argc, const char * argv[]) {
         Wish::printError();
         exit(1);
     }
-    auto res = wish->run();
-    exit(res);
+    auto return_code = wish->run();
+    exit(return_code);
 }
