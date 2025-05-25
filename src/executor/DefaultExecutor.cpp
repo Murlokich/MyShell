@@ -137,15 +137,6 @@ int DefaultExecutor::waitChildren(std::vector<pid_t>& pids) const {
     return 0;
 }
 
-// else {
-//         int status;
-//         auto wait_pid = waitpid(pid, &status, 0);
-//         if (wait_pid == -1) {
-//             return -1;
-//         }
-//         assert(wait_pid == pid);
-//     }
-
 pid_t DefaultExecutor::executeCommand(const std::string& command_path,const Command& command) const {
     pid_t pid = fork();
     if (pid < 0) {
