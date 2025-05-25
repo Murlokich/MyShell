@@ -1,5 +1,5 @@
 /** \file Command.h
- *  \brief Defines the Command class, an abstraction representing a parsed shell command.
+ *  \brief Declares the Command class, an abstraction representing a parsed shell command.
  *  \author Konstantinos Trimikliniotis
  *  \version 0.0.1
  *  \date 19/05/2025

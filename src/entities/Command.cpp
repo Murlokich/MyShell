@@ -1,5 +1,5 @@
 /** \file Entities.cpp
- *  \brief This file defines methods entities structs that are used by parser/executor
+ *  \brief This file defines methods of Command class
  *  \author Konstantinos Trimikliniotis
  *  \version 0.0.1
  *  \date 19/05/2025
@@ -41,5 +41,5 @@ void Command::setSeparator(Separator separator) {
 Command::Command(const std::vector<std::string>& args, 
     std::optional<std::string> redirection_file): args_(args), redirection_file_(redirection_file), separator_(Separator::sequential) {}
 
-    
+
 Command::Command(){}

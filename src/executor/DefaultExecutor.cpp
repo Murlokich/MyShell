@@ -49,7 +49,7 @@ bool DefaultExecutor::executeCommands(const std::vector<Command>& commands) {
             auto command_path = path + "/" + command.getCommand();
             if (isExecutableFile(command_path)) {
                 auto pid = executePathCommand(command_path, command);
-                assert(pid >= 0);
+                assert(pid > 0);
                 executed = true;
                 waiting_pids.push_back(pid);
                 break;
