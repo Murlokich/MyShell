@@ -11,11 +11,21 @@
 #include <optional>
 #include <string>
 
+/** \class IReader
+ *  \brief Interface for input readers used by the shell.
+ *
+ *  IReader defines a uniform way to obtain lines of input,
+ *  whether from a file or interactively from the user.
+*/
 class IReader {
 public:
+    /** \brief Read the next line of input.
+     *  \return An optional containing the next input line if available; std::nullopt on EOF or error.
+    */
     virtual std::optional<std::string> readLine() = 0;
 
     virtual ~IReader() = default;
 };
+
 
 #endif // IREADER_H

@@ -12,9 +12,19 @@
 
 #include <string>
 
-
+/** \class IParser
+ *  \brief Interface for command parsers used by the shell.
+ *
+ *  IParser defines the method to convert a raw input line
+ *  into a sequence of Command objects along with a success flag.
+*/
 class IParser {
 public:
+    /** \brief Parse a raw input line into commands.
+     *  \param line The raw input string containing one or more commands.
+     *  \return A pair where the first element is true if parsing succeeded,
+     *          and the second element is the vector of parsed Command instances.
+    */
     virtual std::pair<bool, std::vector<Command>> parseCommands(const std::string& line) const = 0;
 
     virtual ~IParser() = default;
