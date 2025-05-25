@@ -11,9 +11,13 @@
 #include "IParser.h"
 #include "../entities/Command.h"
 
-class DefaultParser: public IParser { 
-    [[nodiscard]] std::vector<std::string> splitTokens(std::string line);
-    [[nodiscard]] std::optional<Command::Separator> parseSeparator(const std::string& token);
+class DefaultParser: public IParser {
+    [[nodiscard]] std::vector<std::string> splitBySymbols(const std::string& line, const std::string& splitting_symbols, bool keep_symbols=true) const; 
+    [[nodiscard]] std::vector<std::string> splitCommands(const std::string& line) const;
+    [[nodiscard]] std::vector<std::string> parseRedirectionCommand(const std::string& command) const;
+    [[nodiscard]] std::vector<std::string> splitTokens(const std::vector<std::string>& redirection_command) const;
+    [[nodiscard]] std::optional<Command::Separator> parseSeparator(const std::string& token) const;
+    [[nodiscard]] int validateRedirectionRules(const std::vector<std::string>& redirection_tokens) const;
 
     inline static const std::unordered_map<std::string, Command::Separator> strToSeparator_ {
         {"&", Command::Separator::parallel},
@@ -21,7 +25,7 @@ class DefaultParser: public IParser {
         {";", Command::Separator::sequential},
     };
 public:
-    [[nodiscard]] std::vector<Command> parseCommands(std::string line) final;
+    [[nodiscard]] std::pair<int, std::vector<Command>> parseCommands(const std::string& line) const final;
 };
 
 #endif // DEFAULT_PARSER_H

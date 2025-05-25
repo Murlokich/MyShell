@@ -24,11 +24,15 @@ public:
 
     const std::string& getCommand() const;
     const std::vector<std::string>& getArgs() const;
+    const std::optional<std::string> getRedirectionFile() const;
     Separator getSeparator() const;
-    Command(const std::vector<std::string>& args, Separator separator = Separator::sequential);
+    void setSeparator(Separator separator);
+    Command();
+    Command(const std::vector<std::string>& args, std::optional<std::string> redirection_file = std::nullopt);
 private:
     std::vector<std::string> args_;
     Separator separator_;
+    std::optional<std::string> redirection_file_;
 };
 
 

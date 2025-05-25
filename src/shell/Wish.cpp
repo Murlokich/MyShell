@@ -30,7 +30,11 @@ void Wish::printError() {
 
 int Wish::run() {
     while (auto line = reader_->readLine()) {
-        auto parsedLine = parser_->parseCommands(*line);
+        auto [validation_error, parsedLine] = parser_->parseCommands(*line);
+        if (validation_error != 0) {
+            printError();
+            continue;
+        }
         auto res = executor_->executeCommands(parsedLine);
         if (res != 0) {
             printError();

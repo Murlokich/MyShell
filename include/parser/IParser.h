@@ -13,7 +13,7 @@
 
 class IParser {
 public:
-    virtual std::vector<Command> parseCommands(std::string line) = 0;
+    virtual std::pair<int, std::vector<Command>> parseCommands(const std::string& line) const = 0;
 
     virtual ~IParser() = default;
 };
