@@ -1,0 +1,23 @@
+digraph "include/reader/IReader.h"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="include/reader/IReader.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="This file declares interface for the reader."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="include/reader/FileReader.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$da/d52/_file_reader_8h.html",tooltip="Declares the FileReader class for shell file mode, implementing IReader."];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="src/reader/FileReader.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dd/d76/_file_reader_8cpp.html",tooltip="This file defines methods for FileReader class for shells file mode."];
+  Node2 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="src/shell/Wish.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$de/d0a/_wish_8cpp.html",tooltip="This file defines class methods of Wish."];
+  Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="include/reader/Interactive\lReader.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$df/d2f/_interactive_reader_8h.html",tooltip="Declares the InteractiveReader class for shell interactive mode, implementing IReader."];
+  Node5 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="src/reader/InteractiveReader.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dd/d66/_interactive_reader_8cpp.html",tooltip="This file defines methods of InteractiveReader class for shells interactive mode."];
+  Node5 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="include/shell/Wish.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d1/dd4/_wish_8h.html",tooltip="Declares the Wish class, the core shell implementation."];
+  Node7 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="src/main.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$df/d0a/main_8cpp.html",tooltip="This file runs event loop for shell implementation for course COMP-354 project in University Of Nicos..."];
+  Node7 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

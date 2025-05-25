@@ -1,0 +1,20 @@
+digraph "src" {
+  compound=true
+  node [ fontsize="10", fontname="Helvetica"];
+  edge [ labelfontsize="10", labelfontname="Helvetica"];
+  subgraph clusterdir_68267d1309a1af8e8297ef4c3efbcdba {
+    graph [ bgcolor="#eeeeff", pencolor="black", label="" URL="dir_68267d1309a1af8e8297ef4c3efbcdba.html"];
+    dir_68267d1309a1af8e8297ef4c3efbcdba [shape=plaintext label="src"];
+  dir_d691984d1d74be3b164cee16192654be [shape=box label="entities" fillcolor="white" style="filled" URL="dir_d691984d1d74be3b164cee16192654be.html"];
+  dir_47269c51f9fc619a45fe5a093bf2488f [shape=box label="executor" fillcolor="white" style="filled" URL="dir_47269c51f9fc619a45fe5a093bf2488f.html"];
+  dir_6cd8491d143eb218b70983dbdb3c58bc [shape=box label="parser" fillcolor="white" style="filled" URL="dir_6cd8491d143eb218b70983dbdb3c58bc.html"];
+  dir_af89b2be539cdaaafaad341d1e56977e [shape=box label="reader" fillcolor="white" style="filled" URL="dir_af89b2be539cdaaafaad341d1e56977e.html"];
+  dir_b2c05b11dbc691bba5c0cb93063c379f [shape=box label="shell" fillcolor="white" style="filled" URL="dir_b2c05b11dbc691bba5c0cb93063c379f.html"];
+  }
+  dir_d44c64559bbebec7f509842c48db8b23 [shape=box label="include" fillcolor="white" style="filled" color="red" URL="dir_d44c64559bbebec7f509842c48db8b23.html"];
+  dir_af89b2be539cdaaafaad341d1e56977e->dir_d44c64559bbebec7f509842c48db8b23 [headlabel="2", labeldistance=1.5 headhref="dir_000012_000000.html"];
+  dir_d691984d1d74be3b164cee16192654be->dir_d44c64559bbebec7f509842c48db8b23 [headlabel="1", labeldistance=1.5 headhref="dir_000009_000000.html"];
+  dir_b2c05b11dbc691bba5c0cb93063c379f->dir_d44c64559bbebec7f509842c48db8b23 [headlabel="5", labeldistance=1.5 headhref="dir_000013_000000.html"];
+  dir_6cd8491d143eb218b70983dbdb3c58bc->dir_d44c64559bbebec7f509842c48db8b23 [headlabel="1", labeldistance=1.5 headhref="dir_000011_000000.html"];
+  dir_47269c51f9fc619a45fe5a093bf2488f->dir_d44c64559bbebec7f509842c48db8b23 [headlabel="1", labeldistance=1.5 headhref="dir_000010_000000.html"];
+}

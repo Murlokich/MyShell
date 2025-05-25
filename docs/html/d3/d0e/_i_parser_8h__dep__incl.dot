@@ -1,0 +1,18 @@
+digraph "include/parser/IParser.h"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="include/parser/IParser.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="This file declares IParser interface for shell to parse commands."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="include/parser/DefaultParser.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dc/d98/_default_parser_8h.html",tooltip="Declares DefaultParser, which parses input lines into Command entities."];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="src/parser/DefaultParser.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$da/d41/_default_parser_8cpp.html",tooltip="This file defines DefaultParser class to provide default parser for shell."];
+  Node2 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="src/shell/Wish.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$de/d0a/_wish_8cpp.html",tooltip="This file defines class methods of Wish."];
+  Node1 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="include/shell/Wish.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d1/dd4/_wish_8h.html",tooltip="Declares the Wish class, the core shell implementation."];
+  Node5 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="src/main.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$df/d0a/main_8cpp.html",tooltip="This file runs event loop for shell implementation for course COMP-354 project in University Of Nicos..."];
+  Node5 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

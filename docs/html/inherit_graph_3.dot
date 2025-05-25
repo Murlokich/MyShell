@@ -1,0 +1,12 @@
+digraph "Graphical Class Hierarchy"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node0 [label="IReader",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d6/d94/class_i_reader.html",tooltip="Interface for input readers used by the shell."];
+  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="FileReader",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d2/d0e/class_file_reader.html",tooltip="Reads input lines from a file for non-interactive shell mode."];
+  Node0 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="InteractiveReader",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d8/def/class_interactive_reader.html",tooltip="Reads input lines from standard input for interactive shell mode."];
+}

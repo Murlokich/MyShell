@@ -1,0 +1,29 @@
+digraph "include/entities/Command.h"
+{
+ // LATEX_PDF_SIZE
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="include/entities/Command.h",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Declares the Command class, an abstraction representing a parsed shell command."];
+  Node1 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="include/executor/IExecutor.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$de/db7/_i_executor_8h.html",tooltip="This file declares IExecutor interface for shell to execute commands (processes management)"];
+  Node2 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="include/executor/Default\lExecutor.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d8/d81/_default_executor_8h.html",tooltip="Declares the DefaultExecutor class, which handles built-in shell commands and process management for ..."];
+  Node3 -> Node4 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="src/executor/DefaultExecutor.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$da/dc8/_default_executor_8cpp.html",tooltip="This file defines methods of DefaultExecutor class for shell to execute commands."];
+  Node3 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node5 [label="src/shell/Wish.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$de/d0a/_wish_8cpp.html",tooltip="This file defines class methods of Wish."];
+  Node2 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node6 [label="include/shell/Wish.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d1/dd4/_wish_8h.html",tooltip="Declares the Wish class, the core shell implementation."];
+  Node6 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node7 [label="src/main.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$df/d0a/main_8cpp.html",tooltip="This file runs event loop for shell implementation for course COMP-354 project in University Of Nicos..."];
+  Node6 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node8 [label="include/parser/DefaultParser.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dc/d98/_default_parser_8h.html",tooltip="Declares DefaultParser, which parses input lines into Command entities."];
+  Node8 -> Node9 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node9 [label="src/parser/DefaultParser.cpp",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$da/d41/_default_parser_8cpp.html",tooltip="This file defines DefaultParser class to provide default parser for shell."];
+  Node8 -> Node5 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 -> Node10 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 [label="include/parser/IParser.h",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d3/dad/_i_parser_8h.html",tooltip="This file declares IParser interface for shell to parse commands."];
+  Node10 -> Node8 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node10 -> Node6 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}
